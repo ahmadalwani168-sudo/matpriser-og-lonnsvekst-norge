@@ -57,3 +57,9 @@ Deretter brukte jeg DAX til å beregne blant annet:
 - DAX – beregning av vekst, indekser og forskjeller
 - Datavisualisering – utvikling over tid og sammenligning mellom kategorier
 - Analyse – fra problemstilling til funn og konklusjon
+
+### Prisvekst etter matvarekategori
+
+Den andre siden av dashboardet viser forskjellene mellom matvarekategoriene. Brukeren kan velge en kategori og se både prisutviklingen over tid og forskjellen mot lønnsveksten.
+
+![Analyse av matvarekategorier](dashboard-matkategorier.png.png)
