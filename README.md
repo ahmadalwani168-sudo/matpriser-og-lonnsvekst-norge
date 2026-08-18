@@ -58,8 +58,46 @@ Deretter brukte jeg DAX til å beregne blant annet:
 - Datavisualisering – utvikling over tid og sammenligning mellom kategorier
 - Analyse – fra problemstilling til funn og konklusjon
 
+## DAX-eksempel
+
+For å beregne prisveksten for hver matvarekategori brukte jeg 2019 som fast basisår og sammenlignet dette med siste år i datasettet.
+
+```DAX
+Prisvekst per kategori =
+VAR Base2019 =
+    CALCULATE(
+        MAX(Food_Categories[Food_Price_Index]),
+        REMOVEFILTERS(Dim_Year),
+        Dim_Year[Year] = 2019
+    )
+
+VAR SisteAr =
+    CALCULATE(
+        MAX(Dim_Year[Year]),
+        REMOVEFILTERS(Dim_Year)
+    )
+
+VAR SisteVerdi =
+    CALCULATE(
+        MAX(Food_Categories[Food_Price_Index]),
+        REMOVEFILTERS(Dim_Year),
+        Dim_Year[Year] = SisteAr
+    )
+
+RETURN
+    DIVIDE(SisteVerdi, Base2019) - 1
+```
+`REMOVEFILTERS` brukes her for å hente en fast verdi fra 2019 og siste tilgjengelige år, samtidig som filteret for valgt matvarekategori beholdes.
+
+
 ### Prisvekst etter matvarekategori
 
 Den andre siden av dashboardet viser forskjellene mellom matvarekategoriene. Brukeren kan velge en kategori og se både prisutviklingen over tid og forskjellen mot lønnsveksten.
 
 ![Analyse av matvarekategorier](dashboard-matkategorier.png.png)
+
+## Konklusjon
+
+Lønns- og matprisveksten har totalt sett vært relativt lik fra 2019 til 2025, men utviklingen har ikke vært jevn. Lønningene hadde et tydelig forsprang i 2021, mens matprisene tok igjen dette forspranget og gikk forbi fra 2023.
+
+Den største forskjellen finner vi mellom matvarekategoriene. Enkelte kategorier, særlig oljer og fett, har hatt en betydelig sterkere prisvekst enn lønnsveksten. Det betyr at den samlede matprisveksten alene ikke viser hele bildet.
